@@ -10,7 +10,7 @@
                 "RequireConsent": true,
                 "AllowRememberConsent":  false,
                 "RedirectUris": [
-                    "https://ndi-lap-331.3pillar.corp/idsvr3/admin/"
+                    "https://NDI-LAP-510.3pillar.corp/idsvr3/admin/"
                 ],
                 "IdentityProviderRestrictions": [
                     "idsrv"
@@ -22,10 +22,10 @@
                 "ClientName": "MVC Web Client",
                 "Flow": "Implicit",
                 "RedirectUris": [
-                    "https://ndi-lap-331.3pillar.corp/webclient/"
+                    "https://NDI-LAP-510.3pillar.corp/webclient/"
                 ],
                 "PostLogoutRedirectUris": [
-                    "https://ndi-lap-331.3pillar.corp/webclient/"
+                    "https://NDI-LAP-510.3pillar.corp/webclient/"
                 ]
             },
             {

@@ -86,7 +86,9 @@
     <None Include="local.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="azure.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -14,6 +14,7 @@ using Microsoft.Owin.Security.MicrosoftAccount;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using Thinktecture.IdentityServer.Core.Configuration;
+using Microsoft.Owin.Security.WsFederation;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -109,6 +110,20 @@ namespace Host
                 ClientId = "000000004415FD85",
                 ClientSecret = "ntXCMonPTm09ZXHIhNSZ5Q7RZ5gZM1t1"
             });
+
+
+            //authentication in azure ad using ws-federation.
+            //current configuration is using my machine's credentials, if any change is done in the azure ad then the end-points for the ws-federation metatdata is
+            //needed to be updated in the config file.
+            var aadfed = new WsFederationAuthenticationOptions
+            {
+                AuthenticationType = "aadfed",
+                Caption = "Azure AD Fed",
+                SignInAsAuthenticationType = signInAsType,
+                MetadataAddress = ConfigurationManager.AppSettings["fedmetadata"],
+                Wtrealm = ConfigurationManager.AppSettings["wtrealm"]
+            };
+            app.UseWsFederationAuthentication(aadfed);
         }
     }
 }
