@@ -115,15 +115,15 @@ namespace Host
             //authentication in azure ad using ws-federation.
             //current configuration is using my machine's credentials, if any change is done in the azure ad then the end-points for the ws-federation metatdata is
             //needed to be updated in the config file.
-            var aadfed = new WsFederationAuthenticationOptions
+            var azureFedAuthentication = new WsFederationAuthenticationOptions
             {
-                AuthenticationType = "aadfed",
-                Caption = "Azure AD Fed",
+                AuthenticationType = ConfigurationManager.AppSettings["azureadauthtype"],
+                Caption = ConfigurationManager.AppSettings["caption"],
                 SignInAsAuthenticationType = signInAsType,
                 MetadataAddress = ConfigurationManager.AppSettings["fedmetadata"],
                 Wtrealm = ConfigurationManager.AppSettings["wtrealm"]
             };
-            app.UseWsFederationAuthentication(aadfed);
+            app.UseWsFederationAuthentication(azureFedAuthentication);
         }
     }
 }
