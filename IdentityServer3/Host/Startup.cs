@@ -15,7 +15,8 @@ using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using Thinktecture.IdentityServer.Core.Configuration;
 using Microsoft.Owin.Security.WsFederation;
-
+using System.Threading.Tasks;
+using System.Globalization;
 [assembly: OwinStartup(typeof(Startup))]
 
 namespace Host
@@ -94,36 +95,36 @@ namespace Host
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
             {
                 AuthenticationType = "Google",
-                Caption = "Google",
+                Caption = ConfigurationManager.AppSettings["googlecaption"],
                 SignInAsAuthenticationType = signInAsType,
 
-                ClientId = "765434836238-h62rqjlo5199jl8hsoi0075pqi5a8qqp.apps.googleusercontent.com",
-                ClientSecret = "pBJz2OyhyERijXlgI9FrkMn8"
+                ClientId = ConfigurationManager.AppSettings["googleclientid"],
+                ClientSecret = ConfigurationManager.AppSettings["googleclientsecret"]
             });
 
             app.UseMicrosoftAccountAuthentication(new MicrosoftAccountAuthenticationOptions
             {
                 AuthenticationType = "Microsoft",
-                Caption = "Microsoft",
+                Caption = ConfigurationManager.AppSettings["mscaption"],
                 SignInAsAuthenticationType = signInAsType,
 
-                ClientId = "000000004415FD85",
-                ClientSecret = "ntXCMonPTm09ZXHIhNSZ5Q7RZ5gZM1t1"
+                ClientId = ConfigurationManager.AppSettings["msclientid"],
+                ClientSecret = ConfigurationManager.AppSettings["msclientsecret"]
             });
 
 
             //authentication in azure ad using ws-federation.
             //current configuration is using my machine's credentials, if any change is done in the azure ad then the end-points for the ws-federation metatdata is
             //needed to be updated in the config file.
-            var azureFedAuthentication = new WsFederationAuthenticationOptions
+            var azureAdWithWSFed = new WsFederationAuthenticationOptions
             {
-                AuthenticationType = ConfigurationManager.AppSettings["azureadauthtype"],
+                AuthenticationType = "AzureAdFed",
                 Caption = ConfigurationManager.AppSettings["caption"],
                 SignInAsAuthenticationType = signInAsType,
                 MetadataAddress = ConfigurationManager.AppSettings["fedmetadata"],
                 Wtrealm = ConfigurationManager.AppSettings["wtrealm"]
             };
-            app.UseWsFederationAuthentication(azureFedAuthentication);
+            app.UseWsFederationAuthentication(azureAdWithWSFed);
         }
     }
 }
